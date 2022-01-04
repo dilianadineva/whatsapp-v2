@@ -1,0 +1,7 @@
+add modal (instead of prompt)
+remove console logs
+fix the server side rendering (chat should be already displayed when going through chatids (the router id part))
+fix the margin/padding at top/bottom of chat scroll
+test log in, log out
+add seen?
+add onhover effects like opacity, border shadow on <Chat> elements
