@@ -2,8 +2,8 @@ import Head from 'next/head'
 import React from 'react'
 import styled from 'styled-components'
 import Button from '@mui/material/Button';
-import {db, auth, provider} from '../firebase'
-import {signInWithPopup, GoogleAuthProvider} from "firebase/auth";
+import {db, auth, provider, fbprovider} from '../firebase'
+import {signInWithPopup, GoogleAuthProvider, FacebookAuthProvider} from "firebase/auth";
 
 function Login() {
     const signIn = () => { 
@@ -24,6 +24,27 @@ function Login() {
             // }
         );
     }
+    const signInWithFacebook = () => { 
+        signInWithPopup(auth, fbprovider)
+        .then((result) => {
+            const credential = FacebookAuthProvider.credentialFromResult(result);
+             // This gives you a Facebook Access Token. You can use it to access the Facebook API.
+            const token = credential.accessToken;
+            const user = result.user;
+            console.log("login user: ", user)
+        }).catch((error) => {
+            // Handle Errors here.
+            const errorCode = error.code;
+            console.log("fb error: ", errorCode)
+            const errorMessage = error.message;
+            // The email of the user's account used.
+            const email = error.email;
+            // AuthCredential type that was used.
+            const credential = FacebookAuthProvider.credentialFromError(error);
+            console.log("credential error: ", credential)
+            // ...
+          });
+    }
     return (
         <Container>
             <Head>
@@ -34,7 +55,8 @@ function Login() {
             <LoginContainer>
                 <Logo src="https://mcbconline.org/wp-content/uploads/2020/04/whatsapp-logo.png" />
                 {/* <Logo src="https://upload.wikimedia.org/wikipedia/commons/thumb/6/6b/WhatsApp.svg/1021px-WhatsApp.svg.png" /> */}
-                <Button onClick={signIn} variant='outlined'>Sign in with google</Button>           
+                <Button onClick={signIn} variant='outlined'>Sign in with Google</Button>           
+                <Button onClick={signInWithFacebook} variant='outlined'>Sign in with Facebook</Button>           
             </LoginContainer>
         </Container>
     )
