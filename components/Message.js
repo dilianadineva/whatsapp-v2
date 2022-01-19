@@ -34,6 +34,14 @@ const MessageElement=styled.p`
     padding-bottom: 26px;
     position: relative;
     text-align: right;
+    @media (max-width: 768px) {
+        font-size:0.7rem;
+        padding-bottom:10px;
+        padding-left: 7px;
+        padding-right: 7px;
+        margin:7px;
+        min-width:40px
+    }
 `
 
 const SenderMessage = styled(MessageElement)`
@@ -52,5 +60,9 @@ const Timestamp = styled.span`
     position: absolute;
     bottom: 0;
     text-align: right;
-    right: 0
+    right: 0;
+    @media(max-width: 768px){
+        font-size: 7px;
+        padding: 3px
+    }
 `

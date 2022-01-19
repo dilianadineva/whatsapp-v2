@@ -174,7 +174,9 @@ export default ChatScreen;
 
 const Container = styled.div.attrs({
   'data-id': 'chatscreen-container',
-})``;
+})`
+
+`;
 const Header = styled.div`
   position: sticky;
   display: flex;
@@ -216,7 +218,8 @@ const InputContainer = styled.form`
   z-index: 100;
 `;
 const Input = styled.input`
-  flex: 1;
+  width:100%;
+  /* flex: 1; */
   outline: 0;
   border: none;
   border-radius: 10px;
@@ -224,4 +227,8 @@ const Input = styled.input`
   margin-left: 15px;
   margin-right: 15px;
   padding: 20px;
+  @media (max-width: 480px) {
+  margin-left: 5px;
+  margin-right: 5px;
+  }
 `;

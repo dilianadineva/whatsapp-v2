@@ -123,6 +123,11 @@ const Container = styled.div`
     }
     -ms-overflow-style: none;  /* IE and Edge */
     scrollbar-width: none;  /* Firefox */
+
+	@media (max-width: 768px) {
+		min-width: 100px;
+		max-width: 150px;
+  	}
 `
 
 const Header = styled.div`

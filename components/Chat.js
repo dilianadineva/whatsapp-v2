@@ -61,8 +61,14 @@ const Container=styled.div`
     padding: 15px;
     /* if someone has a really long email address, this breaks it to another line */
     word-break: break-word; 
+    @media (max-width: 768px) {
+        padding: 3px;
+        font-size: 0.7rem
+  }
 `
 const UserAvatar=styled(Avatar)`
     margin: 5px 15px 5px 5px;
-
+    @media (max-width: 768px) {
+    display: none !important;
+  }
 `

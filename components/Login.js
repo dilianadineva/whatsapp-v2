@@ -38,7 +38,7 @@ function Login() {
             </LoginContainer>
         </Container>
     )
-}
+} 
 
 export default Login
 
