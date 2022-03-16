@@ -83,7 +83,13 @@ const Sidebar = () => {
 								})
 						}}
 					/>	
-					<Logout>logout</Logout>
+					<Logout onClick={() => {
+							signOut(auth)
+								.then(() => {})
+								.catch((error) => {
+									console.log("error sign out")
+								})
+						}}>Log out</Logout>
 				</UserEl>
 				
 				<IconsContainer>
@@ -174,9 +180,12 @@ const UserAvatar = styled(Avatar)`
 
 const UserEl=styled.div``
 const Logout=styled.div`
-	display: block;
+	display: flex;
+	text-align:center;
 	visibility: hidden;
 	${UserEl}:hover & {
     visibility: visible;
+	cursor:pointer;
+	font-size: 0.9rem
   }
 `
