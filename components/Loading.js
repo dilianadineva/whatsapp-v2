@@ -3,7 +3,7 @@ import { Circle } from "better-react-spinkit"
 
 function Loading() {
 	return (
-		<center style={{ display: "grid", placeItems: "center", height: "100 vh" }}>
+		<center style={{ display: "grid", placeItems: "center", height: "100vh" }}>
 			<div>
 				<img
 					src="https://mcbconline.org/wp-content/uploads/2020/04/whatsapp-logo.png"

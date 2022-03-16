@@ -180,8 +180,6 @@ const UserAvatar = styled(Avatar)`
 
 const UserEl=styled.div``
 const Logout=styled.div`
-	display: flex;
-	text-align:center;
 	visibility: hidden;
 	${UserEl}:hover & {
     visibility: visible;

@@ -149,7 +149,7 @@ function ChatScreen({ chat, chatmessages }) {
         {messages.map((message) => {
           return (
             <Message
-              key={message.id}
+              key={message.timestamp.nanoseconds}
               user={message.user}
               message={{
                 ...message,
