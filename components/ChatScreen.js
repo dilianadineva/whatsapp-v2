@@ -27,10 +27,12 @@ import TimeAgo from 'timeago-react';
 function ChatScreen({ chat, chatmessages }) {
   const router = useRouter();
   const [user] = useAuthState(auth);
+  const [messagesLength, setMessagesLength] = useState(0);
   const [input, setInput] = useState('');
   const [messages, setMessages] = useState([]);
   const [recipient, setRecipient] = useState({});
   const endOfMessagesRef = useRef(null);
+  const startOfMessagesRef = useRef(null);
 
   const getRecipientInfo = async () => {
     const chatsRef = collection(db, 'users');
@@ -47,22 +49,29 @@ function ChatScreen({ chat, chatmessages }) {
   const showMessages = async () => {
     if (chatmessages) {
       setMessages(chatmessages);
+      setMessagesLength(chatmessages.length);
     } else {
       const chatSnaphot = doc(db, 'chats', router.query.id);
       const messagesRef = collection(chatSnaphot, 'messages');
       const messagesQuery = query(messagesRef, orderBy('timestamp', 'asc'));
       const messagesSnapshot = await getDocs(messagesQuery);
       const messagesArray = [];
+      let length = 0;
       if (messagesSnapshot) {
         messagesSnapshot.forEach((message) => {
           messagesArray.push(message.data());
+          length++;
         });
         setMessages(messagesArray);
+        setMessagesLength(length);
+        if (length > 5) {
+          scrollToBottom();
+        }else{
+          startOfMessagesRef.current.scrollTo(0, 0)
+        }
       }
     }
-
     getRecipientInfo();
-    scrollToBottom();
   };
 
   const scrollToBottom = () => {
@@ -93,14 +102,13 @@ function ChatScreen({ chat, chatmessages }) {
       },
       { merge: true }
     );
-
     setInput('');
     scrollToBottom();
   };
 
   useEffect(() => {
     showMessages();
-  }, [chat, !input]);
+  }, [chat, !input, router.query.id]);
 
   const recipientEmail = getRecipientEmail(chat.users, user);
 
@@ -136,7 +144,7 @@ function ChatScreen({ chat, chatmessages }) {
           </IconButton>
         </HeaderIcons>
       </Header>
-      <MessageContainer style={{ backgroundImage: "url(/bgImage.png)" }} >
+      <MessageContainer style={{ backgroundImage: 'url(/bgImage.png)' }} ref={startOfMessagesRef}>
         {/* show messages portion */}
         {messages.map((message) => {
           return (
@@ -174,9 +182,7 @@ export default ChatScreen;
 
 const Container = styled.div.attrs({
   'data-id': 'chatscreen-container',
-})`
-
-`;
+})``;
 const Header = styled.div`
   position: sticky;
   display: flex;
@@ -187,7 +193,7 @@ const Header = styled.div`
   padding: 11px;
   height: 80px;
   border-bottom: 1px solid whitesmoke;
-  @media (max-width:480px){
+  @media (max-width: 480px) {
     font-size: 0.7rem;
   }
 `;
@@ -200,9 +206,9 @@ const HeaderInformation = styled.div`
   > p {
     font-size: 14px;
     color: gray;
-    @media (max-width:480px){
+    @media (max-width: 480px) {
       font-size: 10px;
-  }
+    }
   }
 `;
 const HeaderIcons = styled.div``;
@@ -211,7 +217,7 @@ const MessageContainer = styled.div`
   min-height: 90vh;
 `;
 const EndOfMessage = styled.div`
-  margin-bottom: 10px;
+  margin-bottom: 5px;
 `;
 const InputContainer = styled.form`
   display: flex;
@@ -223,7 +229,7 @@ const InputContainer = styled.form`
   z-index: 100;
 `;
 const Input = styled.input`
-  width:100%;
+  width: 100%;
   /* flex: 1; */
   outline: 0;
   border: none;
@@ -233,7 +239,7 @@ const Input = styled.input`
   margin-right: 15px;
   padding: 20px;
   @media (max-width: 480px) {
-  margin-left: 5px;
-  margin-right: 5px;
+    margin-left: 5px;
+    margin-right: 5px;
   }
 `;

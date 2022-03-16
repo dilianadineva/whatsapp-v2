@@ -61,6 +61,7 @@ const Container=styled.div`
     padding: 15px;
     /* if someone has a really long email address, this breaks it to another line */
     word-break: break-word; 
+    border-bottom: 1px solid whitesmoke;
     @media (max-width: 768px) {
         padding: 3px;
         font-size: 0.7rem
