@@ -136,7 +136,7 @@ function ChatScreen({ chat, chatmessages }) {
           </IconButton>
         </HeaderIcons>
       </Header>
-      <MessageContainer>
+      <MessageContainer style={{ backgroundImage: "url(/bgImage.png)" }} >
         {/* show messages portion */}
         {messages.map((message) => {
           return (
@@ -187,6 +187,9 @@ const Header = styled.div`
   padding: 11px;
   height: 80px;
   border-bottom: 1px solid whitesmoke;
+  @media (max-width:480px){
+    font-size: 0.7rem;
+  }
 `;
 const HeaderInformation = styled.div`
   margin-left: 15px;
@@ -197,12 +200,14 @@ const HeaderInformation = styled.div`
   > p {
     font-size: 14px;
     color: gray;
+    @media (max-width:480px){
+      font-size: 10px;
+  }
   }
 `;
 const HeaderIcons = styled.div``;
 const MessageContainer = styled.div`
   padding: 10px;
-  background-color: whitesmoke;
   min-height: 90vh;
 `;
 const EndOfMessage = styled.div`
